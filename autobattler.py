@@ -1,13 +1,30 @@
-import pyautogui
-import pydirectinput
+import argparse
 import time
+
+import pyautogui
+import pydirectinput 
+
 from routines import save_routine
+from pynput import keyboard 
 
 import sys
 import os
 
-encounter_rate = 22
-enemy_per_ecounter = 2.44
+parser = argparse.ArgumentParser(description='Autobattler for FFIX.')
+parser.add_argument('-m', '--manual', action='store_true', help = 'Use manual focus, use it in case of Moguri Mod')
+parser.add_argument('-s', '--save', default=10, help = 'Set after how many minutes autosave the game')
+
+args = parser.parse_args()
+
+print(args.manual)
+print(args.save)
+
+encounter_rate = 2.3
+enemy_per_ecounter = 2.43
+save_after = 60 * int(args.save)
+count = 1
+
+print(save_after)
 
 clear = lambda: os.system('clear')
 wls = pyautogui.getWindowsWithTitle("Final Fantasy IX")
@@ -29,28 +46,38 @@ pydirectinput.keyDown('right')
 
 print(f'Battling...')
 
-#save_routine()
-count = 1
-start_time = time.time()
-while True:
-
-    pydirectinput.press('x')
-    pydirectinput.press('x')
-    pydirectinput.press('x')
+break_program = False
+def on_press(key):
+    global break_program
+    if key == keyboard.Key.right:
+        print(' Autobattler Stopped')
+        break_program = True
+        return False
     
-    measure = time.time()
-    if measure - start_time > 600:
-        print('Ten minutes lapsed, saving up')
-        save_routine()
-        start_time = time.time()
+start_time = time.time()
 
-        estimate = encounter_rate * enemy_per_ecounter * count
-        count = count + 1
-        print('Estimated enemy defetated: ', estimate)
-
-        print(f'Battling...')
+with keyboard.Listener(on_press=on_press) as listener:
+    while break_program == False:
         
-print('AutoBattler Stopped')
+            pydirectinput.press('x')
+            pydirectinput.press('x')
+            pydirectinput.press('x')
+            
+            measure = time.time()
+            if measure - start_time > save_after:
+                print(f'{args.save} minutes lapsed, activating saving routine')
+                save_routine()
+                start_time = time.time()
+
+                estimate = encounter_rate * enemy_per_ecounter * count
+                count = count + 1
+                print(f'Estimated enemies defeated: {estimate:.2f}')
+
+                print(f'Battling...')
+    
+    listener.join()
+
+        
 
 
 
