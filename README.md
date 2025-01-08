@@ -4,27 +4,25 @@ The objective of this scripts is to help players complete the FFIX Achiviement '
 Functionally, the script use the library PyAutoGUI to send keystroke to the game's window.
 
 
-# Instructions
+## Instructions
 
 ### Requirements
 - Python > 3.10
 - Windows
 
 ### Installation
-Create virtual enviroment
+Create and activate the virtual enviroment
 ```
 py -m venv env
-```
-Activate virtual enviroment 
-```
 Set-ExecutionPolicy Unrestricted -Scope Process
 env/Scripts/activate
 ```
+
 Install the required libraries
 ```
 pip install requirements.py
 ```
-Now open the game in window mode and:
+Now open the game in Window Mode and:
 
 1. Go in Gizamaluke Grotto and place yourself in the Cavern as seen in the screenshot below
 
@@ -38,15 +36,19 @@ Now open the game in window mode and:
 py autobattler.py
 ```
 
-The script will automatically focus the game's window and start playing. Since FFIX on PC has the risk of crashing, the script will change room every 10 minutes to autosave the game, this will prevent the loss of hours of farming.
+The Autobattler will automatically focus the game's window and start playing. Since FFIX on PC has the risk of crashing, the script will change room every 10 minutes to autosave the game, this will prevent the loss of hours of farming. Additionally it will display an estimation of how many enemies where defeated in the meantime, the calculations will be shown below.
 
 ### Parameters
 
-### Why Gizamaluke Grotto
+The script can be launched with two additional parameters: `-m` if you want to manually focus the game's window and `-s n` where `n` indicates after how many minutes the script will save the game (and display an estimation of how many enemies where defeated), the default value of `n` is 10. An example is shown below.
 
-I choose Gizamaluke Grotto because it has been reported has one of the better place to farm, but how long it will take to farm 10.000 enemies?
+```
+py autobattler.py -m -s 20
+```
 
-There are 6 possible combination of enemies encounter, I recorded three batch of 100 encounter and the results are the following
+## Why Gizamaluke Grotto
+
+I choose Gizamaluke Grotto because it has been reported has one of the better place to farm, but how long it will take to farm 10.000 enemies? There are 6 possible combination of enemies encounter, I recorded 3 batch of 100 encounters each and the results are the following:
 
 | Encounter | #1 | #2 | #3 |  Total | % | 
 | :---: | :---: | :---: | :---: | :---: | :---: | 
@@ -57,22 +59,22 @@ There are 6 possible combination of enemies encounter, I recorded three batch of
 | Hornet 2 | 9 | 11 | 9 |29 | 9.7 % |
 | Skeleton 1 | 20 | 17 | 19 | 56 | 18.7 % |
 
-Given this numbers, we can calculate the weight average of enemies per encounter which is 2.43 enemies per encounter
+Given these results, the weight average of enemies defeated per encounter is `2.43 enemies/encounter` and if we consider an average of `2.3 encounter/minute` the total enemies defeated in 60 minutes is `~335.34 enemies/hour`. 
 
-Given an average of 2.3 encounter per minute, the total enemies defeated per hour become 335.34 enemies per hour. To reach 10.000 enemies defeated, we need almost 30 hours of continuos farming.
+To reach 10.000 enemies defeated, we need almost 30 hours of continuos farming.
 
-### Game Settings
+### More Optimization
 
-### Optimal Team
-The optimal team is composed of
+There are a couples of ways to make the battle even quicker. Regarding the settings we can turn on `Skip Intro Battle` and put the camera on `Fixed`, this will save a couple of seconds per fight. 
 
-| Member | #1 | #2 | #3 |  Total | % | 
-| :---: | :---: | :---: | :---: | :---: | :---: | 
-| Zidane | eyeXeye | eyes4eyes | always-haste | 38 | 12.7 % |
-| Freya | eyeXeye | eyes4eyes | always-haste | 76 | 25.3 % |
-| Amourant | eyeXeye | eyes4eyes | always-haste | 34 | 11.3 % |
+As far as team composition I suggest using Zidane, Freya, Amarant and Steiner. Equip Steiner with Alert to prevent back attacks and equip to everyone abilities like Auto-Haste, Counter, Eye 4 Eye and Auto-Haste.
 
-# Integration with Moguri Mod
-Unfortunately I have no clear way to integrate this script with Moguri Mod / Memoria, but there is some work-around that can be done:
+# Integration with Moguri Mod / Memoria
+
+Unfortunately I have no clear way to integrate this script with Moguri Mod / Memoria, but there is some workaround that can be done:
+
+- Use manual focus 
+- Set the Game Speed to x4 in the launcher
+- Disable the save routine since I think there is no risk of crashig using this Mod.
 
 

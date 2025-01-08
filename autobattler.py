@@ -16,29 +16,34 @@ parser.add_argument('-s', '--save', default=10, help = 'Set after how many minut
 
 args = parser.parse_args()
 
-print(args.manual)
-print(args.save)
+print(f'The game will be saved after {args.save} minutes')
 
 encounter_rate = 2.3
 enemy_per_ecounter = 2.43
 save_after = 60 * int(args.save)
 count = 1
 
-print(save_after)
 
-clear = lambda: os.system('clear')
-wls = pyautogui.getWindowsWithTitle("Final Fantasy IX")
+#clear = lambda: os.system('clear')
 
-if wls == []:
-    print('Game not found')
-    sys.exit(0)
+if args.manual:
+    print('Manual Focus Enabled, the battler will start after 5 seconds')
+    time.sleep(5)
+else:
+    wls = pyautogui.getWindowsWithTitle("Final Fantasy IX")
 
-print('Game found')
+    if wls == []:
+        print('Game not found')
+        sys.exit(0)
 
-w = wls[0]
-w.activate()
+    print('Game found')
 
-print('Windows Focused')
+    w = wls[0]
+    w.activate()
+
+    print('Windows Focused')
+
+    time.sleep(2)
 
 print('AutoBattler Started')
 
