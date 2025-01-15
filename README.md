@@ -38,6 +38,8 @@ py autobattler.py
 
 The Autobattler will automatically focus the game's window and start playing. Since FFIX on PC has the risk of crashing, the script will change room every 10 minutes to autosave the game, this will prevent the loss of hours of farming. Additionally it will display an estimation of how many enemies where defeated in the meantime, the calculations will be shown below.
 
+If you want to stop the autobattler, just press the `end` button on your keyboard
+
 ### Parameters
 
 The script can be launched with two additional parameters: `-m` if you want to manually focus the game's window and `-s n` where `n` indicates after how many minutes the script will save the game (and display an estimation of how many enemies where defeated), the default value of `n` is 10. An example is shown below.

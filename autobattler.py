@@ -54,7 +54,7 @@ print(f'Battling...')
 break_program = False
 def on_press(key):
     global break_program
-    if key == keyboard.Key.right:
+    if key == keyboard.Key.end:
         print(' Autobattler Stopped')
         break_program = True
         return False
